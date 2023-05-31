@@ -3,21 +3,21 @@ AS_PARAMETERS = --32
 LD_PARAMETERS = -melf_i386
 
 BOOTLOADER_DIRECTORY = bootloader
-BOOTLOADER = $(wildcard $(BOOTLOADER_DIRECTORY)/*.s)
+BOOTLOADER = $(shell find $(BOOTLOADER_DIRECTORY) -name '*.s')
 
 SOURCE_DIRECTORY = src
-SOURCES = $(wildcard $(SOURCE_DIRECTORY)/*.cpp)
+SOURCES = $(shell find $(SOURCE_DIRECTORY) -name '*.cpp')
 
 BUILD_DIRECTORY = build
 OBJECTS_DIRECTORY = $(BUILD_DIRECTORY)/objs
 OBJECTS = $(BOOTLOADER:$(BOOTLOADER_DIRECTORY)/%.s=$(OBJECTS_DIRECTORY)/%.o) $(SOURCES:$(SOURCE_DIRECTORY)/%.cpp=$(OBJECTS_DIRECTORY)/%.o)
 
 $(OBJECTS_DIRECTORY)/%.o: $(BOOTLOADER_DIRECTORY)/%.s
-	mkdir -p $(OBJECTS_DIRECTORY)
+	mkdir -p $(dir $@)
 	as $(AS_PARAMETERS) -o $@ $<
 
 $(OBJECTS_DIRECTORY)/%.o: $(SOURCE_DIRECTORY)/%.cpp
-	mkdir -p $(OBJECTS_DIRECTORY)
+	mkdir -p $(dir $@)
 	gcc $(GCC_PARAMETERS) -c -o $@ $<
 
 operating-system.bin: linker.ld $(OBJECTS)
