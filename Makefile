@@ -12,6 +12,8 @@ BUILD_DIRECTORY = build
 OBJECTS_DIRECTORY = $(BUILD_DIRECTORY)/objs
 OBJECTS = $(BOOTLOADER:$(BOOTLOADER_DIRECTORY)/%.s=$(OBJECTS_DIRECTORY)/%.o) $(SOURCES:$(SOURCE_DIRECTORY)/%.cpp=$(OBJECTS_DIRECTORY)/%.o)
 
+$(shell rm -rf $(BUILD_DIRECTORY))
+
 $(OBJECTS_DIRECTORY)/%.o: $(BOOTLOADER_DIRECTORY)/%.s
 	mkdir -p $(dir $@)
 	as $(AS_PARAMETERS) -o $@ $<
@@ -39,7 +41,3 @@ operating-system.iso:
 	rm -rf $(BUILD_DIRECTORY)/iso
 
 install: operating-system.bin operating-system.iso
-
-run:
-	(killall VirtualBox && sleep 1) || true
-	VirtualBoxVM --startvm "Operating System" &
