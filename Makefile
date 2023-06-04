@@ -2,15 +2,18 @@ GCC_PARAMETERS = -m32 -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-
 AS_PARAMETERS = --32
 LD_PARAMETERS = -melf_i386
 
-BOOTLOADER_DIRECTORY = bootloader
+BOOTLOADER_DIRECTORY = bootloader/src
 BOOTLOADER = $(shell find $(BOOTLOADER_DIRECTORY) -name '*.s')
 
-SOURCE_DIRECTORY = src
-SOURCES = $(shell find $(SOURCE_DIRECTORY) -name '*.cpp')
+KERNEL_DIRECTORY = kernel/src
+KERNEL = $(shell find $(KERNEL_DIRECTORY) -name '*.cpp')
+
+APPLICATIONS_DIRECTORY = applications/src
+APPLICATIONS = $(shell find $(APPLICATIONS_DIRECTORY) -name '*.cpp')
 
 BUILD_DIRECTORY = build
 OBJECTS_DIRECTORY = $(BUILD_DIRECTORY)/objs
-OBJECTS = $(BOOTLOADER:$(BOOTLOADER_DIRECTORY)/%.s=$(OBJECTS_DIRECTORY)/%.o) $(SOURCES:$(SOURCE_DIRECTORY)/%.cpp=$(OBJECTS_DIRECTORY)/%.o)
+OBJECTS = $(BOOTLOADER:$(BOOTLOADER_DIRECTORY)/%.s=$(OBJECTS_DIRECTORY)/%.o) $(KERNEL:$(KERNEL_DIRECTORY)/%.cpp=$(OBJECTS_DIRECTORY)/%.o) $(APPLICATIONS:$(APPLICATIONS_DIRECTORY)/%.cpp=$(OBJECTS_DIRECTORY)/%.o)
 
 $(shell rm -rf $(BUILD_DIRECTORY))
 
@@ -18,7 +21,11 @@ $(OBJECTS_DIRECTORY)/%.o: $(BOOTLOADER_DIRECTORY)/%.s
 	mkdir -p $(dir $@)
 	as $(AS_PARAMETERS) -o $@ $<
 
-$(OBJECTS_DIRECTORY)/%.o: $(SOURCE_DIRECTORY)/%.cpp
+$(OBJECTS_DIRECTORY)/%.o: $(KERNEL_DIRECTORY)/%.cpp
+	mkdir -p $(dir $@)
+	gcc $(GCC_PARAMETERS) -c -o $@ $<
+
+$(OBJECTS_DIRECTORY)/%.o: $(APPLICATIONS_DIRECTORY)/%.cpp
 	mkdir -p $(dir $@)
 	gcc $(GCC_PARAMETERS) -c -o $@ $<
 
