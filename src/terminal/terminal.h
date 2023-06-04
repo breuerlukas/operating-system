@@ -24,6 +24,7 @@ public:
   void PrintLine(const char* content, int length);
   void Print(char content);
   void Print(const char* content, int length);
+  void Backspace();
   void ChangeForegroundColor(Color color);
   void ChangeBackgroundColor(Color color);
 };

@@ -41,7 +41,7 @@ void Terminal::WriteToTerminal(const char *data, uint16_t size) {
 void Terminal::UpdateTerminalBuffer(char data) {
   UpdateTerminalBuffer(data, CreateTerminalColor(), currentColumn_, currentRow_);
   if (++currentColumn_ == VGA_WIDTH) {
-    currentColumn_ = 6;
+    currentColumn_ = 0;
     if (++currentRow_ == VGA_HEIGHT) {
       currentRow_ = 0;
     }
@@ -61,6 +61,12 @@ uint16_t Terminal::ApplyColorToChar(char data, uint8_t color) {
 
 uint8_t Terminal::CreateTerminalColor() {
   return foregroundColor_ | backgroundColor_ << 4;
+}
+
+void Terminal::Backspace() {
+  currentColumn_--;
+  Print(' ');
+  currentColumn_--;
 }
 
 void Terminal::ChangeForegroundColor(Color color) {
