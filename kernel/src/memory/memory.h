@@ -21,7 +21,6 @@ public:
   void* AllocateMemory(int size);
   void FreeMemory(void* memory);
   void* ReallocateMemory(void* currentMemory, int size);
-  void Blocks();
 };
 
 #endif //OPERATING_SYSTEM_MEMORY_H
