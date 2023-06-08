@@ -5,10 +5,56 @@ Terminal::Terminal(Color foregroundColor, Color backgroundColor) :
 
 }
 
+void Terminal::PrintLine(char content) {
+  if (content == 0) {
+    return;
+  }
+  const char text[1] {
+          (const char) content
+  };
+  PrintLine(text, 1);
+}
+
+int itoa(int value, char *buffer, int radius) {
+  char tmp[16];
+  char *tp = tmp;
+  int i;
+  unsigned v;
+  int sign = (radius == 10 && value < 0);
+  if (sign) {
+    v = -value;
+  } else {
+    v = (unsigned) value;
+  }
+  while (v || tp == tmp) {
+    i = v % radius;
+    v /= radius;
+    if (i < 10) {
+      *tp++ = i + '0';
+    } else {
+      *tp++ = i + 'a' - 10;
+    }
+  }
+  int len = tp - tmp;
+  if (sign) {
+    *buffer++ = '-';
+    len++;
+  }
+  while (tp > tmp) {
+    *buffer++ = *--tp;
+  }
+  return len;
+}
+
+void Terminal::PrintLine(int value) {
+  char *buffer;
+  int length = itoa(value, buffer, 10);
+  PrintLine(buffer, length);
+}
+
 void Terminal::PrintLine(const char* content, int length) {
   Print(content, length);
-  currentRow_++;
-  currentColumn_ = 0;
+  NextLine();
 }
 
 void Terminal::Print(char content) {
@@ -19,6 +65,12 @@ void Terminal::Print(char content) {
     (const char) content
   };
   Print(text, 1);
+}
+
+void Terminal::Print(int value) {
+  char *buffer;
+  int length = itoa(value, buffer, 10);
+  Print(buffer, length);
 }
 
 void Terminal::Print(const char* content, int length) {
@@ -67,6 +119,11 @@ void Terminal::Backspace() {
   currentColumn_--;
   Print(' ');
   currentColumn_--;
+}
+
+void Terminal::NextLine() {
+  currentRow_++;
+  currentColumn_ = 0;
 }
 
 void Terminal::ChangeForegroundColor(Color color) {

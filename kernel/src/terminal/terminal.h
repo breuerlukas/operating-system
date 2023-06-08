@@ -21,10 +21,14 @@ private:
   uint8_t CreateTerminalColor();
 public:
   Terminal(Color foregroundColor, Color backgroundColor);
+  void PrintLine(char content);
+  void PrintLine(int value);
   void PrintLine(const char* content, int length);
   void Print(char content);
+  void Print(int value);
   void Print(const char* content, int length);
   void Backspace();
+  void NextLine();
   void ChangeForegroundColor(Color color);
   void ChangeBackgroundColor(Color color);
 };
