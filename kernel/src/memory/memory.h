@@ -20,7 +20,7 @@ public:
   Memory();
   void* AllocateMemory(int size);
   void FreeMemory(void* memory);
-  void* ReallocateMemory(void* currentMemory, int size);
+  void* ReallocateMemory(void* currentMemory, int currentSize, int updatedSize);
 };
 
 #endif //OPERATING_SYSTEM_MEMORY_H

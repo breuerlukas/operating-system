@@ -76,7 +76,11 @@ void Memory::RemoveMemoryBlock(int startIndex) {
   memoryBlockNumber_--;
 }
 
-void* Memory::ReallocateMemory(void* currentMemory, int size) {
+void* Memory::ReallocateMemory(void* currentMemory, int currentSize, int updatedSize) {
+  void* updatedMemory = AllocateMemory(updatedSize);
+  for (int i = 0; i < currentSize; i++) {
+    ((char*) updatedMemory)[i] = ((char*) currentMemory)[i];
+  }
   FreeMemory(currentMemory);
-  return AllocateMemory(size);
+  return updatedMemory;
 }
