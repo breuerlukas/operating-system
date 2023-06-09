@@ -55,7 +55,7 @@ void CommandLine::ProcessInput(uint8_t input) {
 }
 
 void CommandLine::CheckInputMeaning(uint8_t input) {
-  if (input == 0x0E) {
+  if (input == 0x0E && currentInputLength_ > 0) {
     char* updatedCurrentInput = (char*) memory_->AllocateMemory((currentInputLength_ - 1) * sizeof(char));
     for (int i = 0; i < currentInputLength_ - 1; i++) {
       updatedCurrentInput[i] = currentInput_[i];
