@@ -10,7 +10,7 @@ void Intro::Display() {
 }
 
 void Intro::DisplayTitle() {
-  terminal_->PrintLine("", 0);
+  terminal_->NextLine();
   terminal_->PrintLine("        ___                    _   _             "
                        "___         _             ", 75);
   terminal_->PrintLine("       / _ \\ _ __ ___ _ _ __ _| |_(_)_ _  __ _  "
@@ -21,10 +21,11 @@ void Intro::DisplayTitle() {
                        ", | |___/\\_, /__/\\__\\___|_|_|_|", 75);
   terminal_->PrintLine("            |_|                          |___/   "
                        "    |__/                  ", 75);
-  terminal_->PrintLine("", 0);
-  terminal_->PrintLine("", 0);
+  terminal_->NextLine();
+  terminal_->NextLine();
 }
 
 void Intro::DisplayInformation() {
   terminal_->PrintLine("       Operating System - v1.0.0", 32);
+  terminal_->NextLine();
 }
