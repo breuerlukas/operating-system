@@ -17,6 +17,7 @@ private:
   void WriteToTerminal(const char *data, uint16_t size);
   void UpdateTerminalBuffer(char data);
   void UpdateTerminalBuffer(char data, uint8_t color, uint16_t x, uint16_t y);
+  void CheckRowExceedsLimit();
   uint16_t ApplyColorToChar(char data, uint8_t color);
   uint8_t CreateTerminalColor();
 public:

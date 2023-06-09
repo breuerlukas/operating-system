@@ -94,10 +94,9 @@ void Terminal::UpdateTerminalBuffer(char data) {
   UpdateTerminalBuffer(data, CreateTerminalColor(), currentColumn_, currentRow_);
   if (++currentColumn_ == VGA_WIDTH) {
     currentColumn_ = 0;
-    if (++currentRow_ == VGA_HEIGHT) {
-      currentRow_ = 0;
-    }
+    currentRow_++;
   }
+  CheckRowExceedsLimit();
 }
 
 void Terminal::UpdateTerminalBuffer(char data, uint8_t color, uint16_t x, uint16_t y) {
@@ -122,8 +121,21 @@ void Terminal::Backspace() {
 }
 
 void Terminal::NextLine() {
+  CheckRowExceedsLimit();
   currentRow_++;
   currentColumn_ = 0;
+}
+
+void Terminal::CheckRowExceedsLimit() {
+  if (currentRow_ + 1 < 25) {
+    return;
+  }
+  for (int y = 0; y < 25; y++) {
+    for (int x = 0; x < 80; x++) {
+      buffer_[y * 80 + x] = (int) buffer_[(y + 1) * 80 + x];
+    }
+  }
+  currentRow_--;
 }
 
 void Terminal::ChangeForegroundColor(Color color) {
