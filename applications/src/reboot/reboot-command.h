@@ -1,8 +1,6 @@
 #ifndef OPERATING_SYSTEM_REBOOT_COMMAND_H
 #define OPERATING_SYSTEM_REBOOT_COMMAND_H
 
-#define check_flag(flags, n) ((flags)&(1 << (n)))
-
 #include <cstdint>
 #include "../../../kernel/src/command/command.h"
 
