@@ -1,8 +1,6 @@
 #ifndef OPERATING_SYSTEM_MEMORY_H
 #define OPERATING_SYSTEM_MEMORY_H
 
-#include "../terminal/terminal.h"
-
 struct MemoryBlock {
   int startIndex;
   int endIndex;
