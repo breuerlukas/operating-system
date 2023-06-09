@@ -127,12 +127,12 @@ void Terminal::NextLine() {
 }
 
 void Terminal::CheckRowExceedsLimit() {
-  if (currentRow_ + 1 < 25) {
+  if (currentRow_ + 1 < VGA_HEIGHT) {
     return;
   }
-  for (int y = 0; y < 25; y++) {
-    for (int x = 0; x < 80; x++) {
-      buffer_[y * 80 + x] = (int) buffer_[(y + 1) * 80 + x];
+  for (int y = 0; y < VGA_HEIGHT; y++) {
+    for (int x = 0; x < VGA_WIDTH; x++) {
+      buffer_[y * VGA_WIDTH + x] = (int) buffer_[(y + 1) * VGA_WIDTH + x];
     }
   }
   currentRow_--;
