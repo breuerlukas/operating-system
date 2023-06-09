@@ -5,6 +5,8 @@
 #include "command/command-line.h"
 #include "command/command-registry.h"
 #include "../../applications/src/help/help-command.h"
+#include "../../applications/src/shutdown/shutdown-command.h"
+#include "../../applications/src/reboot/reboot-command.h"
 
 extern "C" int main() {
   Terminal terminal = Terminal(Color::kLightCyan, Color::kBlack);
@@ -14,6 +16,10 @@ extern "C" int main() {
   CommandRegistry commandRegistry = CommandRegistry(&memory);
   HelpCommand helpCommand = HelpCommand(&terminal);
   commandRegistry.AddCommand(&helpCommand);
+  ShutdownCommand shutdownCommand = ShutdownCommand(&terminal);
+  commandRegistry.AddCommand(&shutdownCommand);
+  RebootCommand rebootCommand = RebootCommand(&terminal);
+  commandRegistry.AddCommand(&rebootCommand);
   CommandLine commandLine = CommandLine(&terminal, &memory, &commandRegistry);
   commandLine.Setup();
   return 0;
