@@ -1,5 +1,5 @@
-#ifndef OPERATING_SYSTEM_HELPCOMMAND_H
-#define OPERATING_SYSTEM_HELPCOMMAND_H
+#ifndef OPERATING_SYSTEM_HELP_COMMAND_H
+#define OPERATING_SYSTEM_HELP_COMMAND_H
 
 #include "../../../kernel/src/command/command.h"
 
@@ -9,4 +9,4 @@ public:
   void Execute(char** arguments, int argumentCount, int* argumentLengths) override;
 };
 
-#endif //OPERATING_SYSTEM_HELPCOMMAND_H
+#endif //OPERATING_SYSTEM_HELP_COMMAND_H
