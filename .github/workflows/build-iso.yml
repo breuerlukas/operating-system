@@ -1,0 +1,32 @@
+name: Build OS ISO
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential nasm gcc-multilib g++-multilib grub-pc-bin xorriso mtools
+
+      - name: Build the OS ISO
+        run: |
+          make install
+
+      - name: Upload ISO as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: operating-system-iso
+          path: build/operating-system.iso
