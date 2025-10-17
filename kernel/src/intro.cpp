@@ -10,7 +10,10 @@ void Intro::Display() {
 }
 
 void Intro::DisplayTitle() {
-  terminal_->NextLine();
+  for (int i = 0; i < 100; i++) {
+      terminal_->PrintLine("                                             "
+                       "                              ", 75);
+  }
   terminal_->PrintLine("        ___                    _   _             "
                        "___         _             ", 75);
   terminal_->PrintLine("       / _ \\ _ __ ___ _ _ __ _| |_(_)_ _  __ _  "
