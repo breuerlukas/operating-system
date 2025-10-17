@@ -6,6 +6,12 @@ It’s a personal learning project exploring low-level programming, system archi
 
 The OS is written in C++ and assembly.
 
+## Status
+
+|        | Build Status                                                                                    |
+|--------|-------------------------------------------------------------------------------------------------|
+| master | ![Status](https://github.com/breuerlukas/operating-system/workflows/Build%20OS%20ISO/badge.svg) |
+
 ## Installation
 
 Install the dependencies:
